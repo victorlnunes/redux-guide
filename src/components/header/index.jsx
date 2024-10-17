@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux"
 
 // Components
 import Cart from "../cart/index";
@@ -9,15 +10,20 @@ import * as Styles from "./styles";
 function Header() {
   const [cartIsVisible, setCartIsVisible] = useState(false);
 
+  const { currentUser } = useSelector(rootReducer => rootReducer.userReducer);
+
   const handleCartClick = () => {
     setCartIsVisible(true);
   };
-
   return (
     <Styles.Container>
       <Styles.Logo>Redux Shopping</Styles.Logo>
       <Styles.Buttons>
-        <div>Login</div>
+        {currentUser ? (
+          <div>Sair</div>
+        ) : (
+          <div>Login</div>
+        )}
         <div onClick={handleCartClick}>Carrinho</div>
       </Styles.Buttons>
 
